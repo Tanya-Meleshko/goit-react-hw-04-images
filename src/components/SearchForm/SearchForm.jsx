@@ -28,7 +28,7 @@ const SearchForm = ({ onSubmit }) => {
           name="searchQuery"
           value={query}
           autoComplete="off"
-          placeholder="Search images..."
+          placeholder="Search images.."
           className={s.searchInput}
         />
       </form>
