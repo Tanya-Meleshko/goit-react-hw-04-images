@@ -12,22 +12,11 @@ export const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
 
-  const KEY = '30714189-c7a9caa64088584cf8591e191';
-
-  const addAutoScroll = () => {
-    const cardHeight = 500;
-
-    window.scrollBy({
-      top: cardHeight * 2,
-      behavior: 'smooth',
-    });
-  };
-
   useEffect(() => {
     if (searchQuery.trim() !== '') {
       setIsLoading(true);
 
-      fetchData(KEY, searchQuery, page)
+      fetchData(searchQuery, page)
         .then(gallery => {
           page > gallery.totalHits / 12
             ? setIsLastPage(true)
@@ -39,11 +28,6 @@ export const App = () => {
         })
         .finally(() => {
           setIsLoading(false);
-          if (page > 1) {
-            setTimeout(() => {
-              addAutoScroll();
-            }, 200);
-          }
         });
     }
   }, [searchQuery, page]);
@@ -78,6 +62,7 @@ export const App = () => {
         isLoading={isLoading}
         loadMore={loadMore}
         posts={gallery}
+        page={page}
       />
 
       <ScrollButton />

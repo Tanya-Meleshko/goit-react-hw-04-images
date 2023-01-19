@@ -3,8 +3,24 @@ import LoadMoreButton from 'components/LoadMoreButton/LoadMoreButton';
 import s from './Gallery.module.css';
 import { ThreeDots } from 'react-loader-spinner';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
-const Gallery = ({ isLastPage, isLoading, loadMore, posts }) => {
+const Gallery = ({ isLastPage, isLoading, loadMore, posts, page }) => {
+  const addAutoScroll = () => {
+    const cardHeight = 500;
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    if (page > 1) {
+      addAutoScroll();
+    }
+  }, [posts]);
+
   return (
     <>
       {posts.length === 1 ? (
